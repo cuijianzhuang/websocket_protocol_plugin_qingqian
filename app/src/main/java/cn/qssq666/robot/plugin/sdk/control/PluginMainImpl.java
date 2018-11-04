@@ -53,19 +53,20 @@ public class PluginMainImpl extends SimplePluginInterfaceWrapper
     @Override
     public String getAuthorName()
 	{
-        return "情随事迁";
+        return "Tick Tock";
     }
 
     @Override
     public int getVersionCode()
 	{
+		this.client_Runing = getControlApi().readBooleanConfig("client_Runing",false);
         return 2;
     }
 
     @Override
     public String getBuildTime()
 	{
-        return "2018-08-05 00:04:21";
+        return "1999-10-31 00:04:00";
     }
 
     @Override
@@ -83,13 +84,13 @@ public class PluginMainImpl extends SimplePluginInterfaceWrapper
     @Override
     public String getDescript()
 	{
-        return "看本地存储中美女帅哥的框架,/sdcard/qssq666/pic/新建[girl,boy,base,wang,shang]文件夹放入对应图片,支持的命令如美女 帅哥 王思聪 打赏";
+        return "websocket协议对接其他语言";
     }
 
     @Override
     public String getPluginName()
 	{
-        return "大自然艺术欣赏";
+        return "Websocket Client";
     }
 
     @Override
