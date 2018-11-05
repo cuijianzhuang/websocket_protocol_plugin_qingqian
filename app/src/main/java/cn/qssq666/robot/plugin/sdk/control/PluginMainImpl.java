@@ -150,7 +150,7 @@ public class PluginMainImpl extends SimplePluginInterfaceWrapper
 								@Override
 								public void onMessage(String arg0)
 								{
-									tvlog.append("[websocket] 接收" + arg0 + "\n");
+									tvlog.append("[websocket] 接收到Json\n");
 
 									try
 									{
@@ -180,35 +180,35 @@ public class PluginMainImpl extends SimplePluginInterfaceWrapper
 										}
 										else if (action.equals("sendCardMsg"))
 										{
-											tvlog.append("[robot] 发送卡片消息: " + picPath + "\n");
+											tvlog.append("[robot] 发送卡片消息\n");
 											getControlApi().sendMsgCardMsg(item, Frienduin, Senderuin, picPath);
 										}
 										else if (action.equals("sendVoiceMsg"))
 										{
 											tvlog.append("[robot] 发送语音消息: " + picPath + "\n");
 											
-														getControlApi().sendVoiceMsg(item.setFrienduin(Frienduin),picPath);
+										    getControlApi().sendVoiceMsg(item.setFrienduin(Frienduin),picPath);
 									
 										}
 
 									}
 									catch (JSONException e)
 									{
-										System.out.println(e.toString());
+										tvlog.append(e.toString()+"\n");
 									}
 								}
 
 								@Override
 								public void onError(Exception arg0)
 								{
-									tvlog.append("发生错误已关闭\n");
+									tvlog.append("[websocket] 发生错误已关闭\n");
 									client = null;
 								}
 
 								@Override
 								public void onClose(int arg0, String arg1, boolean arg2)
 								{
-									tvlog.append("链接已关闭\n");
+									tvlog.append("[websocket] 链接到服务器失败\n");
 									client =null;
 								}
 							};
@@ -231,11 +231,11 @@ public class PluginMainImpl extends SimplePluginInterfaceWrapper
 		 //todo
 		String date = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]").format(new Date());
 		if (item.getIstroop() == 1){
-		    tvlog.append(date+"群消息 收到来自群: "+item.getFrienduin()+" 的成员: "+item.getNickname()+" 的消息: "+(message)+"\n");
+		    tvlog.append("[robot] 群消息 收到来自群: "+item.getFrienduin()+" 的成员: "+item.getNickname()+" 的消息: "+(message)+"\n");
 		}else if(item.getIstroop() == 0){
-			tvlog.append(date+"好友消息 收到来自: "+item.getNickname()+" 的消息: "+(message)+"\n");
+			tvlog.append(date+"[root] 好友消息 收到来自: "+item.getNickname()+" 的消息: "+(message)+"\n");
 		}else if(item.getIstroop() == 1000){
-			tvlog.append(date+"私聊消息 收到来自: "+item.getNickname()+" 的消息: "+(message)+"\n");
+			tvlog.append(date+"[robot] 私聊消息 收到来自: "+item.getNickname()+" 的消息: "+(message)+"\n");
 		}
 		JSONObject data = new JSONObject();
 		try
@@ -255,7 +255,7 @@ public class PluginMainImpl extends SimplePluginInterfaceWrapper
 		}
 		if (client.isOpen()){
             client.send(data.toString());
-		    tvlog.append("[websocket] 上传至服务端:"+message+"...\n");
+		    tvlog.append("[websocket] 消息上传至服务端\n");
 		}
 		}else{
 			tvlog.append("[websocket] 服务未开启\n");
@@ -331,6 +331,7 @@ public class PluginMainImpl extends SimplePluginInterfaceWrapper
         buttonEnable.setEnabled(true ^ this.client_Runing);
         buttonEnable.setOnClickListener(new click_enabled(this,buttonEnable,buttondisEnable));
         buttondisEnable.setOnClickListener(new click_disenabled(this,buttondisEnable,buttonEnable));
+		tvLog.setTextSize(8.0f);
 		tvLog.setText(tvlog.toString());
 	 final Handler mHandler = new Handler() {
 
@@ -486,4 +487,3 @@ class Editlistener2 implements TextWatcher {
     public void afterTextChanged(Editable s) {
     }
 }
-
