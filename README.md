@@ -1,6 +1,6 @@
 # Websocket_protocol_plugin_qingqian
 
-情迁qq机器人功耗太大，本项目不在更新
+情迁qq机器人功耗太大，本项目不再更新
 
 websocket协议插件对接其他编程语言
 
